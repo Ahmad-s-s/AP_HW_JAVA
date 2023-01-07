@@ -8,6 +8,8 @@ public class Admin extends Client {
     final static String id = "001";
 
     public Admin() {
+        this.name = "Ehsan";
+        this.lastName = "Shams";
         codeCounter += 1;
         this.setUsername("admin");
         this.name = null;
@@ -35,8 +37,12 @@ public class Admin extends Client {
         ArrayList<Client> res = new ArrayList<>();
         for (Client client :
                 clients) {
-            if (client.lastName.toLowerCase().contains(part.toLowerCase())) {
-                res.add(client);
+            try {
+                if (client.lastName.toLowerCase().contains(part.toLowerCase())) {
+                    res.add(client);
+                }
+            }catch (Exception ignored) {
+                continue;
             }
         }
         return res;

@@ -279,6 +279,7 @@ public class Panels {
             ) {
                 System.out.println(ind);
             }
+            System.out.print(">>");
             String choice = scanner.next();
             if ("1".equals(choice)) {
                 listUser(clients, admin);
@@ -405,8 +406,8 @@ public class Panels {
         age = scanner.nextInt();
         String test;
         do {
-            System.out.println("1. " + Sex.MALE +
-                    "\t2. " + Sex.FEMALE + "\t3. " + Sex.NONE_BINARY);
+            System.out.println("• " + Sex.MALE +
+                    "\t• " + Sex.FEMALE + "\t• " + Sex.NONE_BINARY);
             System.out.print("Sex : ");
             test = scanner.next();
             if (Objects.equals(test.toLowerCase(), Sex.MALE.toString().toLowerCase()))
@@ -420,8 +421,8 @@ public class Panels {
         } while (test == null);
         System.out.println("Done");
         do {
-            System.out.println("1. " + Mode.INSURANCE +
-                    "\t2. " + Mode.NORMAL + "\t3. " + Mode.VIP);
+            System.out.println("• " + Mode.INSURANCE +
+                    "\t• " + Mode.NORMAL + "\t• " + Mode.VIP);
             System.out.print("Mode : ");
             test = scanner.next();
             if (Objects.equals(test.toLowerCase(), Mode.INSURANCE.toString().toLowerCase()))
@@ -514,11 +515,11 @@ public class Panels {
         System.out.print("last name : ");
         lastName = scanner.next();
         System.out.print("Record : ");
-        record = scanner.next();
+        record = scanner.nextLine();
         String test;
         do {
-            System.out.println("1. " + Sex.MALE +
-                    "\t2. " + Sex.FEMALE + "\t3. " + Sex.NONE_BINARY);
+            System.out.println("• " + Sex.MALE +
+                    "\t• " + Sex.FEMALE + "\t• " + Sex.NONE_BINARY);
             System.out.print("Sex : ");
             test = scanner.next();
             if (Objects.equals(test.toLowerCase(), Sex.MALE.toString().toLowerCase()))
@@ -608,11 +609,11 @@ public class Panels {
         } while (!options.contains(field));
         reader.close();
         System.out.print("Record : ");
-        record = scanner.next();
+        record = scanner.nextLine();
         String test;
         do {
-            System.out.println("1. " + Sex.MALE +
-                    "\t2. " + Sex.FEMALE + "\t3. " + Sex.NONE_BINARY);
+            System.out.println("• " + Sex.MALE +
+                    "\t• " + Sex.FEMALE + "\t• " + Sex.NONE_BINARY);
             System.out.print("Sex : ");
             test = scanner.next();
             if (Objects.equals(test.toLowerCase(), Sex.MALE.toString().toLowerCase()))
