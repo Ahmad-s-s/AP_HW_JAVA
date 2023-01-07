@@ -39,8 +39,8 @@ public class Patient extends Client {
         this.status = status;
     }
 
-    Patient(String username, String password, String name, String lastName,
-            Integer age, Sex sex, String disease, Mode mode) {
+    public Patient(String username, String password, String name, String lastName,
+                   Integer age, Sex sex, String disease, Mode mode) {
         this.setUsername(username);
         this.setPassword(password);
         this.name = name;

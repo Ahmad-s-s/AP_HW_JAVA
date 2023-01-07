@@ -8,8 +8,9 @@ public class Admin extends Client {
     final static String id = "001";
 
     public Admin() {
-        this.name = "Ehsan";
-        this.lastName = "Shams";
+        String name = "Ehasn", lastName = "Shams";
+        this.setName(name);
+        this.setLastName(lastName);
         codeCounter += 1;
         this.setUsername("admin");
         this.name = null;

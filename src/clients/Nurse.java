@@ -12,8 +12,8 @@ public class Nurse extends Client {
     static String repeat = new String(new char[40]).replace("\0", "-");
     static Scanner scanner = new Scanner(System.in);
 
-    Nurse(String username, String password, String name, String lastName,
-          String record, Sex sex) {
+    public Nurse(String username, String password, String name, String lastName,
+                 String record, Sex sex) {
         this.name = name;
         this.lastName = lastName;
         this.setUsername(username);

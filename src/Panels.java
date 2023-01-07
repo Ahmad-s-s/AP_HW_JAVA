@@ -226,15 +226,19 @@ public class Panels {
         int line = 1;
         while (reader.hasNextLine()) {
             if (line % 2 == 1) {
-                String field = reader.next();
-                if (field.equals(doctor.field)) {
-                    possible.addAll(Arrays.asList(reader.nextLine().split(",")));
+                String field = reader.nextLine();
+                if (field.toLowerCase().equals(doctor.field.toLowerCase())) {
+                    possible.addAll(Arrays.asList(reader.nextLine().toLowerCase().split(",")));
                     break;
                 }
             } else {
                 reader.nextLine();
             }
             line += 1;
+        }
+        for (String disese:
+             possible) {
+            System.out.println(disese);
         }
         doctor.pick(possible);
     }
@@ -482,11 +486,11 @@ public class Panels {
         Sex sex = Sex.NONE_BINARY;
         while (true) {
             System.out.print("Username : ");
-            username = scanner.next();
+            username = scanner.nextLine();
             boolean accepted = true;
             for (Client client : clients) {
-                if (Objects.equals(username, client.getUsername())) {
-                    System.out.println("username is nit acceptable, try again");
+                if (Objects.equals(username, client.getUsername()) || username.contains(" ")) {
+                    System.out.println("username is not acceptable, try again");
                     accepted = false;
                 }
             }
@@ -495,7 +499,7 @@ public class Panels {
         }
         while (true) {
             System.out.print("password : ");
-            password = scanner.next();
+            password = scanner.nextLine();
             boolean accepted = false;
             String[] necessary = {"!", "@", "#", "$", "%", "&", "*"};
             for (String x : necessary) {
@@ -511,9 +515,9 @@ public class Panels {
             }
         }
         System.out.print("Name : ");
-        name = scanner.next();
+        name = scanner.nextLine();
         System.out.print("last name : ");
-        lastName = scanner.next();
+        lastName = scanner.nextLine();
         System.out.print("Record : ");
         record = scanner.nextLine();
         String test;
@@ -546,10 +550,10 @@ public class Panels {
         Sex sex = Sex.NONE_BINARY;
         while (true) {
             System.out.print("Username : ");
-            username = scanner.next();
+            username = scanner.nextLine();
             boolean accepted = true;
             for (Client client : clients) {
-                if (Objects.equals(username, client.getUsername())) {
+                if (Objects.equals(username, client.getUsername()) || username.contains(" ")) {
                     System.out.println("username is nit acceptable, try again");
                     accepted = false;
                 }
@@ -559,7 +563,7 @@ public class Panels {
         }
         while (true) {
             System.out.print("password : ");
-            password = scanner.next();
+            password = scanner.nextLine();
             boolean accepted = false;
             String[] necessary = {"!", "@", "#", "$", "%", "&", "*"};
             for (String x : necessary) {
@@ -575,9 +579,9 @@ public class Panels {
             }
         }
         System.out.print("Name : ");
-        name = scanner.next();
+        name = scanner.nextLine();
         System.out.print("last name : ");
-        lastName = scanner.next();
+        lastName = scanner.nextLine();
         File myFile = new File("C:\\Users\\Ehsan\\Desktop\\advanced_java\\HW_1\\src\\config.txt");
         Scanner reader = null;
         try {
@@ -604,7 +608,7 @@ public class Panels {
             ;
             System.out.println();
             System.out.print("Field : ");
-            field = scanner.next();
+            field = scanner.nextLine();
             field = field.toUpperCase();
         } while (!options.contains(field));
         reader.close();

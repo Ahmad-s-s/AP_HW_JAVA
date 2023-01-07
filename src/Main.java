@@ -119,7 +119,7 @@ public class Main {
                 builder.append(options[i]);
                 System.out.println(builder.toString());
             }
-            System.out.println(">>");
+            System.out.print(">>");
             String option = scanner.next();
             switch (option) {
                 case "1":
@@ -141,8 +141,25 @@ public class Main {
     public static void main(String[] args) {
         ArrayList<Client> allUsers = new ArrayList<Client>();
         Admin admin = new Admin();
-//        System.out.println();
+
+        //make theme private
+        Physician physician = new Physician("doctor", "@doctor", "doctor", "khub"
+        , "heart", "no record", Sex.MALE);
+        Nurse nurse = new Nurse("nurse", "@nurse", "nurse", "khub", "no record",
+                Sex.FEMALE);
+        Patient patient = new Patient("patient", "@patient", "patient", "khub",
+                13, Sex.NONE_BINARY, "aurt", Mode.VIP );
+        physician.setCode("002");
+        Physician.added.add(physician);
+        nurse.setCode("003");
+        Nurse.added.add(nurse);
+        patient.setCode("004");
+        Patient.added.add(patient);
         allUsers.add(admin);
+        allUsers.add(physician);
+        allUsers.add(nurse);
+        allUsers.add(patient);
+        System.out.println(admin.getName());
         first(allUsers, admin);
     }
 }

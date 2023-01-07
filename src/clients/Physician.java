@@ -16,8 +16,8 @@ public class Physician extends Client {
     ArrayList<Patient> acceptedPatient;
     static String repeat = new String(new char[40]).replace("\0", "-");
 
-    Physician(String username, String password, String name, String lastName,
-              String field, String record, Sex sex) {
+    public Physician(String username, String password, String name, String lastName,
+                     String field, String record, Sex sex) {
         this.setUsername(username);
         this.setPassword(password);
         this.name = name;
@@ -62,8 +62,12 @@ public class Physician extends Client {
         }
         System.out.println(Physician.repeat);
         while (true){
-            System.out.println("Choose one of them by his/her id : ");
+            System.out.println("Choose one of them by his/her id (or zero to cancel the pick up): ");
             String chosen = scanner.next();
+            if (chosen.equals("0")) {
+                System.out.println("No patient picked up.");
+                break;
+            }
             boolean isAccepted = false;
             for (Patient patient :
                     hisField) {
@@ -98,6 +102,7 @@ public class Physician extends Client {
                     patient.admissionTime.getMinute() + ':' + patient.admissionTime.getSecond());
             System.out.println();
         }
+        System.out.println(Physician.repeat);
     }
     public void viewPatient(String name, String lastName) {
         ArrayList<Patient> res = new ArrayList<>();
@@ -161,6 +166,7 @@ public class Physician extends Client {
                     p.getMedicines()) {
                 System.out.print(medicine + '\t');
             }
+            System.out.println();
         }
         System.out.println(Physician.repeat);
     }
@@ -175,9 +181,12 @@ public class Physician extends Client {
         Scanner scanner = new Scanner(System.in);
         for (Patient patient :
                 acceptedPatient) {
+            System.out.println(Physician.repeat);
             patient.introToDoc();
         }
+        System.out.println(Physician.repeat);
         while (true) {
+            System.out.print("ID : ");
             String choose = scanner.next();
             boolean accepted = false;
             for (Patient patient :
@@ -197,6 +206,8 @@ public class Physician extends Client {
         }
         toDischarge.dischargedTime = LocalDateTime.now();
         toDischarge.setStatus(Status.DISCHARGED);
+        this.acceptedPatient.remove(toDischarge);
+
         String history = "The patient is now healed and his doctor was Doc." + this.name + " " + this.lastName +
                 "and now the patient can go home ...";
         toDischarge.setHistory(history);
