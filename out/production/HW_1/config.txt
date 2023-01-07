@@ -1,0 +1,4 @@
+HEART
+blood pressure,heart attack,aurt
+ORTHOPEDIC
+knee ache,backache,broken leg
