@@ -7,7 +7,7 @@ import java.util.Scanner;
 public class Nurse extends Client {
     String ID;
     static Integer idCounter = 0;
-    static ArrayList<Nurse> added = new ArrayList<>();
+    public static ArrayList<Nurse> added = new ArrayList<>();
     String record;
     static String repeat = new String(new char[40]).replace("\0", "-");
     static Scanner scanner = new Scanner(System.in);
@@ -127,6 +127,5 @@ public class Nurse extends Client {
             }
         }
         needMed.myDoc.writeMedicine(needMed, terr);
-
     }
 }

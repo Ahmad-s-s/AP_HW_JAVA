@@ -9,8 +9,8 @@ import java.util.Scanner;
 public class Physician extends Client {
     String ID;
     static Integer idCounter = 0;
-    static ArrayList<Physician> added = new ArrayList<>();
-    String field;
+    public static ArrayList<Physician> added = new ArrayList<>();
+    public String field;
     String[] medicines = new String[3];
     String record;
     ArrayList<Patient> acceptedPatient;
@@ -138,6 +138,13 @@ public class Physician extends Client {
         showResult(res);
     }
 
+    public void showID () {
+        for (Patient patient : this.acceptedPatient) {
+            System.out.println(Physician.repeat);
+            System.out.println("ID : " + patient.ID + " Disease : " + patient.disease);
+        }
+        System.out.println(Physician.repeat);
+    }
     private void showResult(ArrayList<Patient> patients) {
 
         System.out.println("Here's the result of your search : ");
