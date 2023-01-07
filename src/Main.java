@@ -130,7 +130,7 @@ public class Main {
                     break;
                 case "3":
                     System.out.println("Nice to meet you :)\nhope to see you again!");
-                    exit();
+                    System.exit(0);
                     break;
                 default:
                     System.out.println("Wrong input, try again");

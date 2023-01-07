@@ -300,7 +300,7 @@ public class Panels {
                 break;
             } else if ("7".equals(choice)) {
                 System.out.println("The app is explicitly closed by admin user, you were such a bad admin :/");
-                exit();
+                System.exit(0);
             }
         }
     }
