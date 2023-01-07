@@ -14,6 +14,7 @@ public class Patient extends Client {
     private ArrayList<String> medicines;
     LocalDateTime admissionTime, treatmentTime, dischargedTime;
     private String history;
+    Physician myDoc;
 
     public String getHistory() {
         return history;
@@ -52,6 +53,7 @@ public class Patient extends Client {
         this.status = Status.ADMISSION;
         this.admissionTime = LocalDateTime.now();
         medicines = new ArrayList<>();
+        myDoc = null;
         Patient.idCounter += 1;
         if (idCounter >= 100)
             this.ID = idCounter.toString();
