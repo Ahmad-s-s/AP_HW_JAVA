@@ -14,6 +14,7 @@ public class Physician extends Client {
     String[] medicines = new String[3];
     String record;
     ArrayList<Patient> acceptedPatient;
+    static String repeat = new String(new char[40]).replace("\0", "-");
 
     Physician(String username, String password, String name, String lastName,
               String field, String record, Sex sex) {
@@ -44,7 +45,6 @@ public class Physician extends Client {
     }
 
     public void pick (ArrayList<String> possible){ //possible is ana array of those disease that he can heal
-        String repeat = new String(new char[40]).replace("\0", "-");
         Scanner scanner = new Scanner(System.in);
         ArrayList<Patient> all = Patient.added;
         ArrayList<Patient> hisField = new ArrayList<>();
@@ -57,10 +57,10 @@ public class Physician extends Client {
         System.out.println("Here's all patient that you can heal :");
         for (Patient patient :
                 hisField) {
-            System.out.println(repeat);
+            System.out.println(Physician.repeat);
             patient.introToDoc();
         }
-        System.out.println(repeat);
+        System.out.println(Physician.repeat);
         while (true){
             System.out.println("Choose one of them by his/her id : ");
             String chosen = scanner.next();
@@ -71,6 +71,7 @@ public class Physician extends Client {
                     patient.setStatus(Status.TREATMENT);
                     patient.admissionTime = LocalDateTime.now();
                     this.acceptedPatient.add(patient);
+                    patient.myDoc = this;
                     isAccepted = true;
                     break;
                 }
@@ -85,10 +86,9 @@ public class Physician extends Client {
     }
 
     public void listPatient () {
-        String repeat = new String(new char[40]).replace("\0", "-");
         for (Patient patient :
                 acceptedPatient) {
-            System.out.println(repeat);
+            System.out.println(Physician.repeat);
             System.out.println("Name : " + patient.name);
             System.out.println("Last name : " + patient.lastName);
             System.out.println("Disease : " + patient.disease);
@@ -139,11 +139,11 @@ public class Physician extends Client {
     }
 
     private void showResult(ArrayList<Patient> patients) {
-        String repeat = new String(new char[40]).replace("\0", "-");
+
         System.out.println("Here's the result of your search : ");
         for (Patient p :
                 patients) {
-            System.out.println(repeat);
+            System.out.println(Physician.repeat);
             System.out.println("Name : " + p.name);
             System.out.println("Last name : " + p.lastName);
             System.out.println("Sex & Age : " + p.sex + ", " + p.age);
@@ -155,7 +155,7 @@ public class Physician extends Client {
                 System.out.print(medicine + '\t');
             }
         }
-        System.out.println(repeat);
+        System.out.println(Physician.repeat);
     }
     public void writeMedicine(Patient patient, int needs) {
         for (int i = 0; i < needs; i++) {
