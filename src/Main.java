@@ -1,8 +1,7 @@
-import clients.Admin;
-import clients.Client;
-import clients.clientRoll;
+import clients.*;
 
 import java.util.ArrayList;
+import java.util.Objects;
 import java.util.Scanner;
 
 import static javafx.application.Platform.exit;
@@ -27,11 +26,12 @@ public class Main {
             System.out.print("password :\n>>");
             password = scanner.next();
             clientRoll roll = clientRoll.NONNAMED;
+            String code = null;
             boolean wrongPass = false;
             for (Client c :
                     clients) {
                 if (c.amI(username, password)) {
-//                    System.out.println("checked");
+                    code = c.getCode();
                     roll = c.roll;
                     break;
                 } else if (c.wrongPass(username, password)) {
@@ -48,15 +48,36 @@ public class Main {
                         flag = true;
                         break;
                     case PHYSICIAN:
-                        Panels.physicianPanel(clients);
+                        Physician doctor =null;
+                        for (Physician physician : Physician.added) {
+                            if (physician.getCode().equals(code)){
+                                doctor = physician;
+                                break;
+                            }
+                        }
+                        Panels.physicianPanel(clients, Objects.requireNonNull(doctor));
                         flag = true;
                         break;
                     case NURSE:
-                        Panels.nursePanel(clients);
+                        Nurse nurse = null;
+                        for (Nurse nrs : Nurse.added) {
+                            if (nrs.getCode().equals(code)) {
+                                nurse = nrs;
+                                break;
+                            }
+                        }
+                        Panels.nursePanel(clients, nurse);
                         flag = true;
                         break;
                     case PATIENT:
-                        Panels.patientPanel(clients);
+                        Patient patient = null;
+                        for (Patient patient1 : Patient.added) {
+                            if (patient1.getCode().equals(code)) {
+                                patient = patient1;
+                                break;
+                            }
+                        }
+                        Panels.patientPanel(clients, patient);
                         flag = true;
                         break;
                     default:
