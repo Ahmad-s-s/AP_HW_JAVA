@@ -6,7 +6,7 @@ import java.util.ArrayList;
 public class Patient extends Client {
     String ID;
     static Integer idCounter = 0;
-    static ArrayList<Patient> added = new ArrayList<>();
+    public static ArrayList<Patient> added = new ArrayList<>();
     Integer age;
     String disease;
     Mode mode;
