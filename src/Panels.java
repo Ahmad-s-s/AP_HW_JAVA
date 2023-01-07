@@ -11,18 +11,18 @@ import static javafx.application.Platform.exit;
 
 
 public class Panels {
-    static void patientPanel(ArrayList<Client> clients) {
+    static void patientPanel(ArrayList<Client> clients, Patient patient) {
     }
 
-    static void nursePanel(ArrayList<Client> clients) {
+    static void nursePanel(ArrayList<Client> clients, Nurse nurse) {
     }
 
     static void physicianPanel(ArrayList<Client> clients, Physician doctor) {
         Scanner scanner = new Scanner(System.in);
         System.out.println("Welcome to your panel, Doctor " + doctor.getName() + "!");
         String[] docOptions = {"1. Pick Patient", "2. List of your Patient", "3. View a patient info",
-                "4. Write medicine", "5. Discharge a patient", "6. Change password ",
-                "7. Log out"};
+                 "4. Discharge a patient", "5. Change password ",
+                "6. Log out"};
         while (true) {
             System.out.println("Here's your option :");
             for (String op :
@@ -31,24 +31,124 @@ public class Panels {
             }
             String choice = scanner.next();
             if ("1".equals(choice)) {
-
+                pickPatient(doctor);
             } else if ("2".equals(choice)) {
-
+                System.out.println("Now you can see all information about your own patient : ");
+                doctor.listPatient();
             } else if ("3".equals(choice)) {
-
+                viewPatient(doctor);
             } else if ("4".equals(choice)) {
-
+                System.out.println("Now you can discharge one of your patient :");
+                doctor.discharge();
             } else if ("5".equals(choice)) {
-
+                changePassword(doctor);
             } else if ("6".equals(choice)) {
-
-            } else if ("7".equals(choice)) {
                 System.out.println("Have nice day in HIS doctor, goodbye!");
                 break;
             } else {
                 System.out.println("Invalid input, try again !");
             }
         }
+    }
+
+
+    static void viewPatientByName(Physician doctor) {
+        Scanner scanner = new Scanner(System.in);
+        while (true) {
+            System.out.print("Do you have name and last name or want to see them ?\nY/N : ");
+            String choice = scanner.next();
+            if (choice.toUpperCase().equals("Y")) {
+                break;
+            } else if (choice.toUpperCase().equals("N")) {
+                doctor.listPatient();
+                break;
+            } else {
+                System.out.println("Wrong input, try again !");
+            }
+        }
+        while (true) {
+            System.out.print("Name (zero to be null) :");
+            String name = scanner.next();
+            System.out.print("Last name (zero to be null) : ");
+            String lastName = scanner.next();
+            if (name.equals("0") && lastName.equals("0")) {
+                System.out.println("both can't be null, try again !");
+                continue;
+            } else if (name.equals("0")) {
+                name = null;
+            } else if (lastName.equals("0")) {
+                lastName = null;
+            }
+            doctor.viewPatient(name, lastName);
+            break;
+        }
+
+    }
+
+    static void viewPatientByID(Physician doctor) {
+        Scanner scanner = new Scanner(System.in);
+        while (true) {
+            System.out.print("Do you have an ID ?\nY/N : ");
+            String choice = scanner.next();
+            if (choice.toUpperCase().equals("Y")) {
+                break;
+            } else if (choice.toUpperCase().equals("N")) {
+                doctor.showID();
+                break;
+            } else {
+                System.out.println("Wrong input, try again !");
+            }
+        }
+
+        System.out.print("ID : ");
+        String choice = scanner.next();
+        doctor.viewPatient(choice);
+
+    }
+
+    static void viewPatient(Physician doctor) {
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("How do you want to search the patient ?");
+        System.out.println("1. By name and last name\t2. By ID");
+        while (true) {
+            System.out.print("Choice : ");
+            String choice = scanner.next();
+            if ("1".equals(choice)) {
+                viewPatientByName(doctor);
+                break;
+            } else if ("2".equals(choice)) {
+                viewPatientByID(doctor);
+                break;
+            } else {
+                System.out.println("Wrong input try again !");
+            }
+        }
+    }
+
+    static void pickPatient(Physician doctor) {
+        File myFile = new File("C:\\Users\\Ehsan\\Desktop\\advanced_java\\HW_1\\src\\config.txt");
+        ArrayList<String> possible = new ArrayList<>();
+        Scanner reader = null;
+        try {
+            reader = new Scanner(myFile);
+        } catch (FileNotFoundException e) {
+            System.out.println("File not found!");
+            throw new RuntimeException(e);
+        }
+        int line = 1;
+        while (reader.hasNextLine()) {
+            if (line % 2 == 1) {
+                String field = reader.next();
+                if (field.equals(doctor.field)) {
+                    possible.addAll(Arrays.asList(reader.nextLine().split(",")));
+                    break;
+                }
+            } else {
+                reader.nextLine();
+            }
+            line += 1;
+        }
+        doctor.pick(possible);
     }
 
     static void changePassword(Physician doctor) {
