@@ -2,6 +2,7 @@ import clients.*;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Objects;
@@ -15,11 +16,99 @@ public class Panels {
     }
 
     static void nursePanel(ArrayList<Client> clients, Nurse nurse) {
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Welcome to your panel, Nurse " + nurse.getName() + " " + nurse.getLastName() + "!");
+        String[] nurseOp = {"1. Check the Patients states", "2. Change Password", "3. Log out"};
+        while (true) {
+            System.out.println("Here's your options :");
+            for (String option : nurseOp) {
+                System.out.println(option);
+            }
+            String choice = scanner.next();
+            if (choice.equals("1")) {
+                checkState(nurse);
+            }else if (choice.equals("2")){
+                changePassword(nurse);
+            }else if (choice.equals("3")) {
+                System.out.println("back to login menu, nice to meet you");
+                break;
+            }else {
+                System.out.println("Wrong input, try again !");
+            }
+        }
     }
+
+    static void checkState(Nurse nurse) {
+        Scanner scanner = new Scanner(System.in);
+        String[] state = {"1. No Doctor Assign", "2. Checked In Time", "3. Get prescription", "4. Back to main menu"};
+        while (true){
+            System.out.println("Which state do you want ro check ? ");
+            for (String str : state) {
+                System.out.println(str);
+            }
+            String choice = scanner.next();
+            if (choice.equals("1")){
+                System.out.println("All patient without doctor :");
+                nurse.noDoctor();
+                break;
+            }else if (choice.equals("2")){
+                ArrayList<String> date1 = new ArrayList<>(), date2 = new ArrayList<>();
+                System.out.println("Enter 2 date and see the all patient that arrived to HIS between them .");
+                System.out.println("Time 1 :");
+                System.out.print("Year : ");
+                date1.add(scanner.next());
+                System.out.print("Month : ");
+                date1.add(scanner.next());
+                System.out.print("Day : ");
+                date1.add(scanner.next());
+                System.out.println("Time 2 : ");
+                System.out.print("Year : ");
+                date2.add(scanner.next());
+                System.out.print("Month : ");
+                date2.add(scanner.next());
+                System.out.print("Day : ");
+                date2.add(scanner.next());
+                nurse.checkIn(date1, date2);
+                break;
+            }else if (choice.equals("3")){
+                System.out.println("writing prescription for a patient :");
+                nurse.getPres();
+            }else if (choice.equals("4")){
+                break;
+            }
+        }
+    }
+
+    static void changePassword(Nurse nurse) {
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("You are going to change your password, ");
+        System.out.println("The new password must contains one of special character " +
+                "(!@#$%&*&) ");
+        while (true) {
+            System.out.print("password : ");
+            String password = scanner.next();
+            boolean accepted = false;
+            String[] necessary = {"!", "@", "#", "$", "%", "&", "*"};
+            for (String x : necessary) {
+                if (password.contains(x)) {
+                    accepted = true;
+                    break;
+                }
+            }
+            if (accepted) {
+                nurse.setPassword(password);
+                break;
+            } else {
+                System.out.println("Invalid password, try again!");
+            }
+        }
+        System.out.println("Password updated successfully :)");
+    }
+
 
     static void physicianPanel(ArrayList<Client> clients, Physician doctor) {
         Scanner scanner = new Scanner(System.in);
-        System.out.println("Welcome to your panel, Doctor " + doctor.getName() + "!");
+        System.out.println("Welcome to your panel, Doctor " + doctor.getName() +" "+doctor.getLastName() + "!");
         String[] docOptions = {"1. Pick Patient", "2. List of your Patient", "3. View a patient info",
                  "4. Discharge a patient", "5. Change password ",
                 "6. Log out"};
@@ -50,7 +139,6 @@ public class Panels {
             }
         }
     }
-
 
     static void viewPatientByName(Physician doctor) {
         Scanner scanner = new Scanner(System.in);

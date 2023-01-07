@@ -58,20 +58,25 @@ public class Nurse extends Client {
                 "lastName : " + patient.lastName);
     }
 
-    private boolean checkTime(LocalDateTime toCheck, LocalDateTime t1, LocalDateTime t2) {
-        if (toCheck.isAfter(t1) && toCheck.isBefore(t2)) {
+    private boolean checkTime(LocalDateTime toCheck, ArrayList<String> t1, ArrayList<String> t2) {
+        if (toCheck.getYear() >= Integer.parseInt(t1.get(0)) &&
+                toCheck.getMonthValue() >= Integer.parseInt(t1.get(1)) &&
+                toCheck.getDayOfMonth() >= Integer.parseInt(t1.get(2)) &&
+                toCheck.getYear() <= Integer.parseInt(t2.get(0)) &&
+                toCheck.getMonthValue() <= Integer.parseInt(t2.get(2)) &&
+                toCheck.getDayOfMonth() <= Integer.parseInt(t2.get(2))) {
             return true;
-        }else {
+        } else {
             return false;
         }
     }
 
-    public void checkIn(LocalDateTime t1, LocalDateTime t2) {
+    public void checkIn(ArrayList<String> t1, ArrayList<String> t2) {
         ArrayList<Patient> all = Patient.added;
         ArrayList<Patient> matched = new ArrayList<>();
         for (Patient patient :
                 all) {
-            if(checkTime(patient.admissionTime, t1, t2)) {
+            if (checkTime(patient.admissionTime, t1, t2)) {
                 matched.add(patient);
             }
         }
@@ -86,7 +91,7 @@ public class Nurse extends Client {
         ArrayList<Patient> all = Patient.added;
         ArrayList<Patient> available = new ArrayList<>();
         Patient needMed = null;
-        for(Patient patient : all) {
+        for (Patient patient : all) {
             if (patient.getStatus().equals(Status.TREATMENT)) {
                 available.add(patient);
             }
@@ -102,7 +107,7 @@ public class Nurse extends Client {
             String chosen = Nurse.scanner.next();
             boolean isTrue = false;
             for (Patient patient : available) {
-                if (patient.ID.equals(chosen)){
+                if (patient.ID.equals(chosen)) {
                     isTrue = true;
                     needMed = patient;
                     break;
@@ -110,19 +115,18 @@ public class Nurse extends Client {
             }
             if (isTrue) {
                 break;
-            }else {
+            } else {
                 System.out.println("unacceptable ID, try again :");
             }
         }
         System.out.println("from 1 to 3, how terrible is the patient's status ?");
-        int terr ;
-        while (true){
+        int terr;
+        while (true) {
             System.out.print("Terribleness : ");
             terr = Nurse.scanner.nextInt();
             if (terr >= 1 && terr <= 3) {
                 break;
-            }
-            else {
+            } else {
                 System.out.println("not acceptable, try again !");
             }
         }
