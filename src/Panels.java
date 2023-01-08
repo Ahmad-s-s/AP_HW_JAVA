@@ -13,6 +13,62 @@ import static javafx.application.Platform.exit;
 
 public class Panels {
     static void patientPanel(ArrayList<Client> clients, Patient patient) {
+        Scanner scanner = new Scanner(System.in);
+        String[] patOp = {"1. Check out", "2. Change password", "3. Log out"};
+        System.out.println("Welcome to patient panel !");
+        while (true) {
+            System.out.println("Here's your options :");
+            for (String option : patOp){
+                System.out.println(option);
+            }
+            String choice = scanner.next();
+            if (choice.equals("1")){
+                checkout(patient);
+            }else if (choice.equals("2")){
+                changePassword(patient);
+            }else if(choice.equals("3")){
+                System.out.println("You are now to logging out !");
+                break;
+            }else {
+                System.out.println("Wrong input, try again !");
+            }
+        }
+    }
+
+    static void changePassword(Patient patient) {
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("You are going to change your password, ");
+        System.out.println("The new password must contains one of special character " +
+                "(!@#$%&*&) ");
+        while (true) {
+            System.out.print("password : ");
+            String password = scanner.next();
+            boolean accepted = false;
+            String[] necessary = {"!", "@", "#", "$", "%", "&", "*"};
+            for (String x : necessary) {
+                if (password.contains(x)) {
+                    accepted = true;
+                    break;
+                }
+            }
+            if (accepted) {
+                patient.setPassword(password);
+                break;
+            } else {
+                System.out.println("Invalid password, try again!");
+            }
+        }
+        System.out.println("Password updated successfully :)");
+
+    }
+
+    static void checkout(Patient patient) {
+        if (patient.getStatus().equals(Status.DISCHARGED)) {
+            System.out.println("You are allowed to check out");
+            patient.checkOut();
+        }else {
+            System.out.println("You are not allowed to check out, try visit your doctor!");
+        }
     }
 
     static void nursePanel(ArrayList<Client> clients, Nurse nurse) {

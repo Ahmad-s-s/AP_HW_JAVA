@@ -1,7 +1,15 @@
 package clients;
 
 import java.time.LocalDateTime;
+import java.time.Period;
 import java.util.ArrayList;
+
+import java.time.Duration;
+import java.time.Instant;
+import java.time.LocalDateTime;
+import java.time.Period;
+import java.time.ZoneId;
+import java.util.Scanner;
 
 public class Patient extends Client {
     String ID;
@@ -75,5 +83,36 @@ public class Patient extends Client {
         System.out.println("Mode : " + this.mode);
         System.out.println("Disease : " + this.disease);
         System.out.println("ID : " + this.ID);
+    }
+
+    public void checkOut() {
+        Scanner scanner = new Scanner(System.in);
+        LocalDateTime checkoutTime = LocalDateTime.now();
+        Integer days = ((checkoutTime.getYear() - admissionTime.getYear()) * 365) +
+                ((checkoutTime.getMonthValue() - admissionTime.getMonthValue()) * 30) +
+                ((checkoutTime.getDayOfMonth() - admissionTime.getDayOfMonth()));
+        Integer res =0;
+        if(mode.equals(Mode.VIP)) {
+            res = days*120;
+        } else if (mode.equals(Mode.NORMAL)) {
+            res = days*70;
+        } else if (mode.equals(Mode.INSURANCE)) {
+            res = days*35;
+        }
+        while (true){
+            System.out.println("You have to pay $" + res + " as cost of your stay time in HIS\n" +
+                    "Do you pay it now ?\nY/N : ");
+            String choice = scanner.next();
+            if (choice.toLowerCase().equals("y")){
+                System.out.println("The payment accepted, you are now free to go!");
+                this.status = Status.CheckedOut;
+                break;
+            }else if (choice.toLowerCase().equals("n")){
+                System.out.println("Ok fine, sounds delicious to stay more here :)");
+                break;
+            }else{
+                System.out.println("Invalid input, try again !");
+            }
+        }
     }
 }
